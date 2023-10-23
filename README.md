@@ -36,12 +36,16 @@ This project incorporates the following:
 
       https://mwrona.com/posts/accel-roll-pitch/
 
+   This project can be switched between the following two primary modes of operation:
+   - RV mode (four points of balance/leveling = four wheels)
+   - Trailer mode (three points of balance/leveling = two wheels and hitch)
+
    This project implements the following:
 
       1) read the XYZ vector from the BMA400 triple axis accelerometer breakout
-      2) use the XYZ vector to calculate PITCH and ROLL values for the current plane of the RV orientation
-      3) use the calculated PITCH and ROLL values to determine the highest wheel (which will not require any blocks)
-      4) use the calculated PITCH and ROLL values to determine the number of inches of blocks required for the remaining three wheels to achieve "level"
+      2) use the XYZ vector to calculate PITCH and ROLL values for the current plane of the RV/trailer orientation
+      3) use the calculated PITCH and ROLL values to determine the highest wheel/point (which will not require any blocks)
+      4) use the calculated PITCH and ROLL values to determine the number of inches of blocks required for the remaining wheels/points to achieve "level"
       5) update the display with the current results once per second (& average all values otherwise)
       6) repeat
 
