@@ -53,4 +53,4 @@ This project incorporates the following:
 
 CONTACT INFO:
 
-If you have any questions, suggestions for improvement, and most especially any bug reports, please contact me at
+If you have any questions, suggestions for improvement, and most especially any bug reports, please contact me at kd5rxt@arrl.net
