@@ -6,7 +6,7 @@ This project came about after we acquired a used RV & I quickly grew tired of th
    2) look at the bubble level on the kitchen counter to determine "level or not"
    3) make/revise my best guess as to how many blocks are required on each wheel to attain "level"
    4) drive the RV up on the best guess number of blocks
-   5) if the RV is "level", then DONE
+   5) if the RV is "level", then you're DONE !!
    6) if the RV is not yet "level", then drive the RV down off of the best guess number of blocks
    7) goto 3) above & repeat several times (until either we're close enough, or I get fed up, whichever comes first)
 
