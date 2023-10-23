@@ -4,9 +4,11 @@ Teensy RV Leveling Helper using Teensy 4.0 + BMA400 Triple Axis Accelerometer Br
 This project came about after we acquired a used RV & I quickly grew tired of the following process of attempting to level the RV:
    1) park the RV on a particular site
    2) look at the bubble level on the kitchen counter to determine "level or not"
-   3) make my best guess as to how many blocks are required on each wheel to attain "level"
+   3) make/revise my best guess as to how many blocks are required on each wheel to attain "level"
    4) drive the RV up on the best guess number of blocks
-   5) goto 2) above & repeat several times (until either we're close enough, or I get fed up, whichever comes first)
+   5) if the RV is "level", then DONE
+   6) if the RV is not yet "level", then drive the RV down off of the best guess number of blocks
+   7) goto 3) above & repeat several times (until either we're close enough, or I get fed up, whichever comes first)
 
 This project incorporates the following:
 
