@@ -22,15 +22,14 @@ This project incorporates the following:
          available from Sparkfun https://www.sparkfun.com/products/21208
 
 
-   This project uses touchscreen input & color display to create a visual (graphical) indication of how many inches of
-      leveling blocks are required to be put under each wheel of an RV to level it
+   This project uses touchscreen input & color display to create a visual (graphical) indication of how many inches of leveling blocks are required to be put under each wheel of an RV to level it
   
-   This project uses the ILI9341_t3 library, which has been optimized for use with the Teensy TFT display, as well as
-      the XPT2046_Touchscreen.h touchscreen library for that same display
+   This project uses the ILI9341_t3 library, which has been optimized for use with the Teensy TFT display, as well as the XPT2046_Touchscreen.h touchscreen library for that same display
 
 
-   This project allows & stores configurable wheel base (front to back wheels distance) from 60" to 255"
-   This project allows & stores configurable wheel distance (front wheels, left to right distance) from 60" to 84"
+   This project allows & stores configurable wheel base (front to back wheels distance) from 60" to 255".
+
+   This project allows & stores configurable wheel distance (front wheels, left to right distance) from 60" to 84".
 
 
    Internet reference (with equation derivation) for transforming accelerometer x,y,z vector data into pitch & roll angles:
@@ -42,8 +41,7 @@ This project incorporates the following:
       1) read the XYZ vector from the BMA400 triple axis accelerometer breakout
       2) use the XYZ vector to calculate PITCH and ROLL values for the current plane of the RV orientation
       3) use the calculated PITCH and ROLL values to determine the highest wheel (which will not require any blocks)
-      4) use the calculated PITCH and ROLL values to determine the number of inches of blocks required for the remaining
-        three wheels to achieve "level"
+      4) use the calculated PITCH and ROLL values to determine the number of inches of blocks required for the remaining three wheels to achieve "level"
       5) update the display with the current results once per second (& average all values otherwise)
       6) repeat
 
