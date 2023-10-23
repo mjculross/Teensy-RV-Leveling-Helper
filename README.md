@@ -51,4 +51,6 @@ This project incorporates the following:
       5) update the display with the current results once per second (& average all values otherwise)
       6) repeat
 
-If you have any questions and/or find any bugs, please contact me at kd5rxt@arrl.net
+CONTACT INFO:
+
+If you have any questions, suggestions for improvement, and most especially any bug reports, please contact me at
