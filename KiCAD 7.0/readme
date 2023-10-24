@@ -1,8 +1,3 @@
-The included schematic includes four points as follows (with connectivity description in parentheses):
+The included schematic includes two points as follows (with connectivity description in parentheses):
 - USB VIN (input 5VDC from the external USB connector)
-- USB VCC (switched 5VDC that is supplied to the USB input on the Adafruit PowerBoost 1000C)
-- BATT IN (battery power input from the external LiPo battery)
-- BATT VDD (switched battery power that is supplied to the BAT input on the Adafruit PowerBoost 1000C)
-
-The USB VIN and USB VCC connection points are wired such that they are connected by one side of the external DPDT Power Switch when in the "ON" position.
-The BATT IN and BATT VDD connection points are wired such that they are connected by the other side of the external DPDT Power Switch when in the "ON" position.
+- ENABLE IN (connects the EN input on the Adafruit PowerBoost 1000C to GROUND to activate the project)
