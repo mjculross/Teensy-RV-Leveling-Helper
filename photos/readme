@@ -4,6 +4,7 @@ For the case mechanical assembly, reference the "TeensyRVLevelingCalculator - me
 Four M2.5 x 10mm screws (RED) are inserted from the bottom, passing thru the case bottom.  Using four M2.5 nuts (SILVER), one is installed onto each screw and hand-tightened around the case bottom.  These nuts are secured to the screw using blue threadlocker, a conservative amount of which is applied to the top of each nut such that the threadlocker liquid penetrates between the screw threads and the nuts.  Four M2.5x11+6 threaded stand-offs (MAGENTA) are secured with four M2.5 nuts (NOT SHOWN) to the prototype board (GREEN) which holds all of the electronic parts.  These stand-offs secured to the prototype board are carefully aligned with the four screws inserted thru the case bottom.  The screws are tightened only halfway into the stand-offs, leaving the ability to adjust each screw individually in order to calibrate the absolute level of the project (see the CALIBRATION section below).  Four 20mm x 5mm rubber feet (with a hole punched into the center of each) are placed on the bottom, allowing access to the adjustment screws thru the center punched holes.
 
 CALIBRATION:
+
 Step #0:
 - place the project on as level a surface as you can find and pay particular attention to the location placement of the project case
 
