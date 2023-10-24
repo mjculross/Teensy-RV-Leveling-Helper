@@ -1,6 +1,7 @@
 # Teensy-RV-Leveling-Helper
 Teensy RV Leveling Helper using Teensy 4.0 + BMA400 Triple Axis Accelerometer Breakout + ILI9341 Color 320x240 TFT Touchscreen display
 
+
 This project came about after we acquired a used RV motorhome & I quickly grew tired of the following process of attempting to level the RV:
    1) park the RV on a particular site
    2) look at the bubble level on the kitchen counter to determine "level or not"
@@ -23,6 +24,7 @@ This project incorporates the following:
       BMA400 Triple Axis Accelerometer Breakout
          available from Sparkfun https://www.sparkfun.com/products/21208
 
+![TRLH - RV mode main screen](https://github.com/mjculross/Teensy-RV-Leveling-Helper/assets/4277910/6b16b0c0-ed02-4666-bd05-db4aa8ab182b)
 
    This project uses touchscreen input & color display to create a visual (graphical) indication of how many inches of leveling blocks are required to be put under each wheel of an RV to level it
   
