@@ -39,6 +39,10 @@ This project incorporates the following:
 
       https://mwrona.com/posts/accel-roll-pitch/
 
+   The specific DPDT switch that I use for power control (& for which the 3D printed case is designed) is the Carling Technologies 62115929-0-0-V, available from digikey as part number 432-1252-ND (https://www.digikey.com/en/products/detail/carling-technologies/62115929-0-0-V/3025077).
+
+   An Adafruit microUSB panel mount extension cable Product ID 3258 (https://www.adafruit.com/product/3258) is mounted on the side wall of the case.  The cable is split such that the USB 5VDC line connects to the USB input pin on the Adafruit PowerBoost 1000C to provide power & battery charging, while the remaining GROUND, D-, & D+ signals connect to the microUSB connector on the Teensy to allow (re)programming without opening the case.
+
    This project implements the following:
 
       1) read the XYZ vector from the BMA400 triple axis accelerometer breakout
