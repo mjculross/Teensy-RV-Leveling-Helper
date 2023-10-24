@@ -29,6 +29,7 @@ This project incorporates the following:
   
    This project uses the ILI9341_t3 library, which has been optimized for use with the Teensy TFT display, as well as the XPT2046_Touchscreen.h touchscreen library for that same display
 
+   This project specifically uses the SparkFun BMA400 support library (SparkFun_BMA400_Arduino_Library.h) which can be added using the Arduino IDE library manager.
 
    This project allows & stores configurable wheel base (front to back wheels distance) from 60" to 255".
 
