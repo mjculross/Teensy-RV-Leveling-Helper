@@ -17,6 +17,6 @@ Step #1:
 Step #2:
 - note the initial ROLL angle reported (roll_i)
 - rotate the project case 180 degrees, making sure the place the project case back as close to the same spot as before
-- note the rotated ROLL angle reported (pitch_r)
+- note the rotated ROLL angle reported (roll_r)
 - rotate the project case 180 degrees, making sure the place the project case back as close to the same spot as before
-- adjust the two screws at the left and/or right side of the project case equally (raising and/or lowering the left and/or right side of the project case as required) and repeat Step #1 as many times as necessary until roll_i is approximately equal to the negative of roll_r, centered around 0 degrees
+- adjust the two screws at the left and/or right side of the project case equally (raising and/or lowering the left and/or right side of the project case as required) and repeat Step #2 as many times as necessary until roll_i is approximately equal to the negative of roll_r, centered around 0 degrees
