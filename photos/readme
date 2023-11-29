@@ -7,7 +7,7 @@ CALIBRATION:
 
 Preparation:
 - set the wheel base and the axle width both to 60" and ensure that the display is updating (the asterisk in the middle should be blinking)
-- place the project on as level a surface as you can find and pay particular attention to the location placement of the project case
+- place the project on a surface that is only slightly unlevel (1 or 2 degrees off) and pay particular attention to the location placement of the project case
 
 Step #1:
 - note the initial PITCH angle reported (pitch_i)
