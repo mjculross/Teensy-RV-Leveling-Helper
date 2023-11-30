@@ -55,9 +55,10 @@ This project incorporates the following:
 
 OPERATIONAL MODES:
 
-   This project can be switched between the following two primary modes of operation:
+   This project can be switched between the following primary modes of operation:
    - RV mode (four points of balance/leveling = four wheels)
    - Trailer mode (three points of balance/leveling = two wheels and the hitch)
+   - Bubble mode (traditional 2-D bubble level)
 
 
 MECHANICAL ASSEMBLY & CALIBRATION:
