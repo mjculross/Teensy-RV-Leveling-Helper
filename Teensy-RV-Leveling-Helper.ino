@@ -1,5 +1,5 @@
 //
-// Teensy RV Leveling Helper - version 1.1 dated 11/29/2023 @0720
+// Teensy RV Leveling Helper - version 1.1 dated 11/29/2023 @2305
 //    created by Mark J Culross, KD5RXT (kd5rxt@arrl.net)
 //
 // HARDWARE:
@@ -74,9 +74,9 @@ String TITLE           = ("Teensy RV Leveling Helper");
 String TITLE_A         = ("Teensy");
 String TITLE_B         = ("RV Leveling");
 String TITLE_C         = ("Helper");
-String VERSION0        = ("version 1.1 - 11/29/2023 @0720");
+String VERSION0        = ("version 1.1 - 11/29/2023 @2305");
 String VERSION0_A      = ("Version 1.1");
-String VERSION0_B      = ("11/29/2023 @0720");
+String VERSION0_B      = ("11/29/2023 @2305");
 String VERSION1        = ("created by: MJCulross (KD5RXT)");
 String VERSION1_A      = ("created by:");
 String VERSION1_B      = ("Mark J Culross");
@@ -156,7 +156,7 @@ uint8_t i2cAddress = BMA400_I2C_ADDRESS_DEFAULT; // 0x14
 
 typedef enum
 {
-   TRLH_MOTORHOME_MODE = 0, TRLH_TRAILER_MODE,
+   TRLH_MOTORHOME_MODE = 0, TRLH_TRAILER_MODE, TRLH_BUBBLE_MODE,
 } TRLH_MODE_TYPE;
 
 TRLH_MODE_TYPE trlh_mode = TRLH_MOTORHOME_MODE;
@@ -307,6 +307,11 @@ void calculate_results(void)
             }
          }
          break;
+
+      case TRLH_BUBBLE_MODE:
+         {
+         }
+         break;
    }
 }  // calculate_results()
 
@@ -355,36 +360,6 @@ void draw_axle_info(void)
    tft.setCursor(220, 305);
    tft.print("-");
    tft.drawRect(128, 292, 106, 26, ILI9341_BLACK);
-
-   tft.setTextSize(1);
-   tft.fillRect(6, 255, 65, 30, ILI9341_YELLOW);
-   tft.setTextColor(ILI9341_BLACK, ILI9341_YELLOW);
-
-   switch (trlh_mode)
-   {
-      case TRLH_MOTORHOME_MODE:
-         {
-            print_centered("MOTORHOME", 39, 265);
-         }
-         break;
-
-      case TRLH_TRAILER_MODE:
-         {
-            print_centered("TRAILER", 39, 265);
-         }
-         break;
-   }
-
-   print_centered("MODE", 39, 275);
-
-   tft.fillRect(170, 255, 65, 30, ILI9341_YELLOW);
-   tft.setCursor(188, 261);
-   tft.print("TOUCH");
-   tft.setCursor(176, 271);
-   tft.print("TO RESUME");
-
-   tft.drawRect(8, 257, 61, 26, ILI9341_BLACK);
-   tft.drawRect(172, 257, 61, 26, ILI9341_BLACK);
 }  // draw_axle_info()
 
 
@@ -476,28 +451,79 @@ void draw_initial_screen(void)
             tft.setTextSize(1);
          }
          break;
+
+      case TRLH_BUBBLE_MODE:
+         {
+         }
+         break;
    }
 
    tft.setTextSize(2);
 
-   tft.setCursor(5, 190);
-   tft.print("RAISE");
+   if (trlh_mode != TRLH_BUBBLE_MODE)
+   {
+      tft.setCursor(5, 190);
+      tft.print("RAISE");
 
-   tft.setCursor(175, 190);
-   tft.print("RAISE");
+      tft.setCursor(175, 190);
+      tft.print("RAISE");
+
+      tft.setTextSize(1);
+
+      print_centered("PITCH (F to B)", 121, 140);
+      print_centered("ROLL (L to R)", 121, 175);
+
+      draw_axle_info();
+   } else {
+      tft.setTextColor(ILI9341_BLACK, ILI9341_WHITE);
+      tft.setTextSize(1);
+
+      print_centered("PITCH (F to B)", 60, 315);
+      print_centered("ROLL (L to R)", 180, 315);
+   }
 
    tft.setTextSize(1);
+   tft.fillRect(6, 255, 65, 30, ILI9341_YELLOW);
+   tft.setTextColor(ILI9341_BLACK, ILI9341_YELLOW);
 
-   print_centered("PITCH (F to B)", 121, 140);
-   print_centered("ROLL (L to R)", 121, 175);
+   switch (trlh_mode)
+   {
+      case TRLH_MOTORHOME_MODE:
+         {
+            print_centered("MOTORHOME", 39, 265);
+         }
+         break;
 
-   draw_axle_info();
+      case TRLH_TRAILER_MODE:
+         {
+            print_centered("TRAILER", 39, 265);
+         }
+         break;
+
+      case TRLH_BUBBLE_MODE:
+         {
+            print_centered("BUBBLE", 39, 265);
+         }
+         break;
+   }
+
+   print_centered("MODE", 39, 275);
+
+   tft.fillRect(170, 255, 65, 30, ILI9341_YELLOW);
+   tft.setCursor(188, 261);
+   tft.print("TOUCH");
+   tft.setCursor(176, 271);
+   tft.print("TO RESUME");
+
+   tft.drawRect(8, 257, 61, 26, ILI9341_BLACK);
+   tft.drawRect(172, 257, 61, 26, ILI9341_BLACK);
 }  // draw_initial_screen()
 
 
 // show the calculation results on the display
 void draw_results(void)
 {
+   static float x_roll, y_pitch;
    int tire_color;
 
    switch (trlh_mode)
@@ -756,299 +782,395 @@ void draw_results(void)
             tft.fillCircle(120, 59, 3, tire_color);          // hitch
          }
          break;
-   }
 
-   switch (lr_inch_blocks_needed)
-   {
-      case 0:
+      case TRLH_BUBBLE_MODE:
          {
-            tire_color = block_00_inch_color;
-         }
-         break;
+            tft.setTextColor(ILI9341_BLACK, ILI9341_WHITE);
 
-      case 1:
-         {
-            tire_color = block_01_inch_color;
-         }
-         break;
+            tft.fillRect(0, 290, 100, 15, ILI9341_WHITE);
 
-      case 2:
-         {
-            tire_color = block_02_inch_color;
-         }
-         break;
+            tft.setTextSize(2);
 
-      case 3:
-         {
-            tire_color = block_03_inch_color;
-         }
-         break;
-
-      case 4:
-         {
-            tire_color = block_04_inch_color;
-         }
-         break;
-
-      case 5:
-         {
-            tire_color = block_05_inch_color;
-         }
-         break;
-
-      case 6:
-         {
-            tire_color = block_06_inch_color;
-         }
-         break;
-
-      case 7:
-         {
-            tire_color = block_07_inch_color;
-         }
-         break;
-
-      case 8:
-         {
-            tire_color = block_08_inch_color;
-         }
-         break;
-
-      case 9:
-         {
-            tire_color = block_09_inch_color;
-         }
-         break;
-
-      case 10:
-         {
-            tire_color = block_10_inch_color;
-         }
-         break;
-
-      case 11:
-         {
-            tire_color = block_11_inch_color;
-         }
-         break;
-
-      default:
-         {
-            tire_color = block_12_inch_color;
-         }
-         break;
-   }
-
-   if (trlh_mode == TRLH_MOTORHOME_MODE)
-   {
-      tft.fillRect(89, 205, 10, 30, tire_color);       // lr inside tire
-   }
-   tft.fillRect(77, 205, 10, 30, tire_color);       // lr outside tire
-
-   switch (rr_inch_blocks_needed)
-   {
-      case 0:
-         {
-            tire_color = block_00_inch_color;
-         }
-         break;
-
-      case 1:
-         {
-            tire_color = block_01_inch_color;
-         }
-         break;
-
-      case 2:
-         {
-            tire_color = block_02_inch_color;
-         }
-         break;
-
-      case 3:
-         {
-            tire_color = block_03_inch_color;
-         }
-         break;
-
-      case 4:
-         {
-            tire_color = block_04_inch_color;
-         }
-         break;
-
-      case 5:
-         {
-            tire_color = block_05_inch_color;
-         }
-         break;
-
-      case 6:
-         {
-            tire_color = block_06_inch_color;
-         }
-         break;
-
-      case 7:
-         {
-            tire_color = block_07_inch_color;
-         }
-         break;
-
-      case 8:
-         {
-            tire_color = block_08_inch_color;
-         }
-         break;
-
-      case 9:
-         {
-            tire_color = block_09_inch_color;
-         }
-         break;
-
-      case 10:
-         {
-            tire_color = block_10_inch_color;
-         }
-         break;
-
-      case 11:
-         {
-            tire_color = block_11_inch_color;
-         }
-         break;
-
-      default:
-         {
-            tire_color = block_12_inch_color;
-         }
-         break;
-   }
-   if (trlh_mode == TRLH_MOTORHOME_MODE)
-   {
-      tft.fillRect(141, 205, 10, 30, tire_color);      // rr inside tire
-   }
-   tft.fillRect(153, 205, 10, 30, tire_color);      // rr outside tire
-
-   tft.setTextSize(3);
-
-   tft.setTextColor(ILI9341_BLUE, ILI9341_WHITE);
-   print_centered("*", 115, 215);
-
-   delay(100);
-
-   tft.setTextColor(ILI9341_WHITE, ILI9341_WHITE);
-   print_centered("*", 115, 215);
-
-   tft.setTextColor(ILI9341_BLACK, ILI9341_WHITE);
-
-   tft.fillRect(76, 143, 88, 20, ILI9341_WHITE);
-
-   tft.setTextSize(2);
-
-   if (abs(pitch) < 10)
-   {
-      tft.setCursor(90, 147);
-   } else {
-      tft.setCursor(84, 147);
-   }
-   if (pitch >= 0.0)
-   {
-      tft.print("+");
-   }
-   tft.print(pitch);
-
-   tft.fillRect(76, 178, 88, 20, ILI9341_WHITE);
-
-   if (abs(roll) < 10)
-   {
-      tft.setCursor(90, 182);
-   } else {
-      tft.setCursor(84, 182);
-   }
-   if (roll >= 0.0)
-   {
-      tft.print("+");
-   }
-   tft.print(roll);
-
-   tft.setTextSize(3);
-
-   switch (trlh_mode)
-   {
-      case TRLH_MOTORHOME_MODE:
-         {
-            tft.setCursor(15, 90);
-            if (lf_inch_blocks_needed <= MAX_BLOCK_INCHES)
+            if (abs(pitch) < 10)
             {
-               if (lf_inch_blocks_needed < 10)
-               {
-                  tft.print("0");
-               }
-               tft.print((int)lf_inch_blocks_needed);
-               tft.print("\"");
+               tft.setCursor(30, 290);
             } else {
-               tft.print("-- ");
+               tft.setCursor(24, 290);
+            }
+            if (pitch >= 0.0)
+            {
+               tft.print("+");
+            }
+            tft.print(pitch);
+
+            tft.fillRect(120, 290, 100, 15, ILI9341_WHITE);
+
+            if (abs(roll) < 10)
+            {
+               tft.setCursor(150, 290);
+            } else {
+               tft.setCursor(144, 290);
+            }
+            if (roll >= 0.0)
+            {
+               tft.print("+");
+            }
+            tft.print(roll);
+
+            tft.fillCircle(map(x_roll, -45, +45, 200, 40), map(y_pitch, -45, +45, 240, 80), 10, ILI9341_WHITE);
+
+            if (pitch > 45.0)
+            {
+               y_pitch = 45.0;
+            } else {
+               if (pitch < -45.0)
+               {
+                  y_pitch = -45.0;
+               } else {
+                  y_pitch = pitch;
+               }
             }
 
-            tft.setCursor(185, 90);
-            if (rf_inch_blocks_needed <= MAX_BLOCK_INCHES)
+            if (roll > 45.0)
             {
-               if (rf_inch_blocks_needed < 10)
-               {
-                  tft.print("0");
-               }
-               tft.print((int)rf_inch_blocks_needed);
-               tft.print("\"");
+               x_roll = 45.0;
             } else {
-               tft.print("-- ");
+               if (roll < -45.0)
+               {
+                  x_roll = -45.0;
+               } else {
+                  x_roll = roll;
+               }
             }
-         }
-         break;
 
-      case TRLH_TRAILER_MODE:
-         {
-            tft.setCursor(15, 90);
-            if (hitch_inch_blocks_needed <= MAX_BLOCK_INCHES)
-            {
-               if (hitch_inch_blocks_needed < 10)
-               {
-                  tft.print("0");
-               }
-               tft.print((int)hitch_inch_blocks_needed);
-               tft.print("\"");
-            } else {
-               tft.print("-- ");
-            }
+            //   tft.fillRect(0, 40, 240, 242, ILI9341_WHITE);
+
+            tft.fillCircle(map(x_roll, -45, +45, 200, 40), map(y_pitch, -45, +45, 240, 80), 10, ILI9341_GREEN);
+            tft.drawCircle(map(x_roll, -45, +45, 200, 40), map(y_pitch, -45, +45, 240, 80), 10, ILI9341_BLACK);
+
+            tft.drawCircle(120, 160, 14, ILI9341_BLACK);
+            tft.drawCircle(120, 160, 15, ILI9341_BLACK);
+
+            tft.drawCircle(120, 160, 34, ILI9341_BLACK);
+            tft.drawCircle(120, 160, 35, ILI9341_BLACK);
+
+            tft.drawCircle(120, 160, 54, ILI9341_BLACK);
+            tft.drawCircle(120, 160, 55, ILI9341_BLACK);
+
+            tft.drawCircle(120, 160, 74, ILI9341_BLACK);
+            tft.drawCircle(120, 160, 75, ILI9341_BLACK);
+
+            tft.drawLine(30, 160, 100, 160, ILI9341_BLACK);
+            tft.drawLine(140, 160, 210, 160, ILI9341_BLACK);
+
+            tft.drawLine(120, 70, 120, 140, ILI9341_BLACK);
+            tft.drawLine(120, 180, 120, 250, ILI9341_BLACK);
+
+            tft.drawLine(110, 160, 130, 160, ILI9341_BLACK);
+            tft.drawLine(120, 150, 120, 170, ILI9341_BLACK);
          }
          break;
    }
 
-   tft.setCursor(15, 210);
-   if (lr_inch_blocks_needed <= MAX_BLOCK_INCHES)
+   if (trlh_mode != TRLH_BUBBLE_MODE)
    {
-      if (lr_inch_blocks_needed < 10)
+      switch (lr_inch_blocks_needed)
       {
-         tft.print("0");
-      }
-      tft.print((int)lr_inch_blocks_needed);
-      tft.print("\"");
-   } else {
-      tft.print("-- ");
-   }
+         case 0:
+            {
+               tire_color = block_00_inch_color;
+            }
+            break;
 
-   tft.setCursor(185, 210);
-   if (rr_inch_blocks_needed <= MAX_BLOCK_INCHES)
-   {
-      if (rr_inch_blocks_needed < 10)
-      {
-         tft.print("0");
+         case 1:
+            {
+               tire_color = block_01_inch_color;
+            }
+            break;
+
+         case 2:
+            {
+               tire_color = block_02_inch_color;
+            }
+            break;
+
+         case 3:
+            {
+               tire_color = block_03_inch_color;
+            }
+            break;
+
+         case 4:
+            {
+               tire_color = block_04_inch_color;
+            }
+            break;
+
+         case 5:
+            {
+               tire_color = block_05_inch_color;
+            }
+            break;
+
+         case 6:
+            {
+               tire_color = block_06_inch_color;
+            }
+            break;
+
+         case 7:
+            {
+               tire_color = block_07_inch_color;
+            }
+            break;
+
+         case 8:
+            {
+               tire_color = block_08_inch_color;
+            }
+            break;
+
+         case 9:
+            {
+               tire_color = block_09_inch_color;
+            }
+            break;
+
+         case 10:
+            {
+               tire_color = block_10_inch_color;
+            }
+            break;
+
+         case 11:
+            {
+               tire_color = block_11_inch_color;
+            }
+            break;
+
+         default:
+            {
+               tire_color = block_12_inch_color;
+            }
+            break;
       }
-      tft.print((int)rr_inch_blocks_needed);
-      tft.print("\"");
-   } else {
-      tft.print("-- ");
+
+      if (trlh_mode == TRLH_MOTORHOME_MODE)
+      {
+         tft.fillRect(89, 205, 10, 30, tire_color);       // lr inside tire
+      }
+      tft.fillRect(77, 205, 10, 30, tire_color);       // lr outside tire
+
+      switch (rr_inch_blocks_needed)
+      {
+         case 0:
+            {
+               tire_color = block_00_inch_color;
+            }
+            break;
+
+         case 1:
+            {
+               tire_color = block_01_inch_color;
+            }
+            break;
+
+         case 2:
+            {
+               tire_color = block_02_inch_color;
+            }
+            break;
+
+         case 3:
+            {
+               tire_color = block_03_inch_color;
+            }
+            break;
+
+         case 4:
+            {
+               tire_color = block_04_inch_color;
+            }
+            break;
+
+         case 5:
+            {
+               tire_color = block_05_inch_color;
+            }
+            break;
+
+         case 6:
+            {
+               tire_color = block_06_inch_color;
+            }
+            break;
+
+         case 7:
+            {
+               tire_color = block_07_inch_color;
+            }
+            break;
+
+         case 8:
+            {
+               tire_color = block_08_inch_color;
+            }
+            break;
+
+         case 9:
+            {
+               tire_color = block_09_inch_color;
+            }
+            break;
+
+         case 10:
+            {
+               tire_color = block_10_inch_color;
+            }
+            break;
+
+         case 11:
+            {
+               tire_color = block_11_inch_color;
+            }
+            break;
+
+         default:
+            {
+               tire_color = block_12_inch_color;
+            }
+            break;
+      }
+      if (trlh_mode == TRLH_MOTORHOME_MODE)
+      {
+         tft.fillRect(141, 205, 10, 30, tire_color);      // rr inside tire
+      }
+      tft.fillRect(153, 205, 10, 30, tire_color);      // rr outside tire
+
+      tft.setTextSize(3);
+
+      tft.setTextColor(ILI9341_BLUE, ILI9341_WHITE);
+      print_centered("*", 115, 215);
+
+      delay(100);
+
+      tft.setTextColor(ILI9341_WHITE, ILI9341_WHITE);
+      print_centered("*", 115, 215);
+
+      tft.setTextColor(ILI9341_BLACK, ILI9341_WHITE);
+
+      tft.fillRect(76, 143, 88, 20, ILI9341_WHITE);
+
+      tft.setTextSize(2);
+
+      if (abs(pitch) < 10)
+      {
+         tft.setCursor(90, 147);
+      } else {
+         tft.setCursor(84, 147);
+      }
+      if (pitch >= 0.0)
+      {
+         tft.print("+");
+      }
+      tft.print(pitch);
+
+      tft.fillRect(76, 178, 88, 20, ILI9341_WHITE);
+
+      if (abs(roll) < 10)
+      {
+         tft.setCursor(90, 182);
+      } else {
+         tft.setCursor(84, 182);
+      }
+      if (roll >= 0.0)
+      {
+         tft.print("+");
+      }
+      tft.print(roll);
+
+      tft.setTextSize(3);
+
+      switch (trlh_mode)
+      {
+         case TRLH_MOTORHOME_MODE:
+            {
+               tft.setCursor(15, 90);
+               if (lf_inch_blocks_needed <= MAX_BLOCK_INCHES)
+               {
+                  if (lf_inch_blocks_needed < 10)
+                  {
+                     tft.print("0");
+                  }
+                  tft.print((int)lf_inch_blocks_needed);
+                  tft.print("\"");
+               } else {
+                  tft.print("-- ");
+               }
+
+               tft.setCursor(185, 90);
+               if (rf_inch_blocks_needed <= MAX_BLOCK_INCHES)
+               {
+                  if (rf_inch_blocks_needed < 10)
+                  {
+                     tft.print("0");
+                  }
+                  tft.print((int)rf_inch_blocks_needed);
+                  tft.print("\"");
+               } else {
+                  tft.print("-- ");
+               }
+            }
+            break;
+
+         case TRLH_TRAILER_MODE:
+            {
+               tft.setCursor(15, 90);
+               if (hitch_inch_blocks_needed <= MAX_BLOCK_INCHES)
+               {
+                  if (hitch_inch_blocks_needed < 10)
+                  {
+                     tft.print("0");
+                  }
+                  tft.print((int)hitch_inch_blocks_needed);
+                  tft.print("\"");
+               } else {
+                  tft.print("-- ");
+               }
+            }
+            break;
+
+         case TRLH_BUBBLE_MODE:
+            {
+            }
+            break;
+      }
+
+      tft.setCursor(15, 210);
+      if (lr_inch_blocks_needed <= MAX_BLOCK_INCHES)
+      {
+         if (lr_inch_blocks_needed < 10)
+         {
+            tft.print("0");
+         }
+         tft.print((int)lr_inch_blocks_needed);
+         tft.print("\"");
+      } else {
+         tft.print("-- ");
+      }
+
+      tft.setCursor(185, 210);
+      if (rr_inch_blocks_needed <= MAX_BLOCK_INCHES)
+      {
+         if (rr_inch_blocks_needed < 10)
+         {
+            tft.print("0");
+         }
+         tft.print((int)rr_inch_blocks_needed);
+         tft.print("\"");
+      } else {
+         tft.print("-- ");
+      }
    }
 }  // draw_results()
 
@@ -1095,7 +1217,7 @@ void loop(void)
    // the acceleration data, otherwise it will never update
    accelerometer.getSensorData();
 
-   if (++counter <= NUM_SAMPLES_PER_AVG)
+   if (((trlh_mode != TRLH_BUBBLE_MODE) && (++counter <= NUM_SAMPLES_PER_AVG)) || ((trlh_mode == TRLH_BUBBLE_MODE) && (++counter <= (NUM_SAMPLES_PER_AVG / 5))))
    {
       pitch = asin(accelerometer.data.accelX / sqrt(accelerometer.data.accelX * accelerometer.data.accelX + accelerometer.data.accelY * accelerometer.data.accelY + accelerometer.data.accelZ * accelerometer.data.accelZ)) * 180 / PI;
       roll  = atan(accelerometer.data.accelY / accelerometer.data.accelZ) * 180 / PI;
@@ -1103,6 +1225,12 @@ void loop(void)
       pitch_avg += pitch;
       roll_avg += roll;
    } else {
+      if (trlh_mode == TRLH_BUBBLE_MODE)
+      {
+         pitch_avg *= 5;
+         roll_avg *= 5;
+      }
+
       pitch = pitch_avg / (float)NUM_SAMPLES_PER_AVG;
       roll = roll_avg / (float)NUM_SAMPLES_PER_AVG;
 
@@ -1270,7 +1398,7 @@ void process_buttons()
 void process_button_inputs(TS_Point p)
 {
    // click on wheel base increase (+)
-   if ((p.x >= 100) && (p.x <= 120) && (p.y >= 290) && (p.y <= 305))
+   if ((trlh_mode != TRLH_BUBBLE_MODE) && (p.x >= 100) && (p.x <= 120) && (p.y >= 290) && (p.y <= 305))
    {
       if (front_to_rear_wheel_distance_in_inches < FRONT_TO_REAR_MAX_WHEEL_DISTANCE_IN_INCHES)
       {
@@ -1283,7 +1411,7 @@ void process_button_inputs(TS_Point p)
    }
 
    // click on wheel base decrease (-)
-   if ((p.x >= 100) && (p.x <= 120) && (p.y >= 310) && (p.y <= 320))
+   if ((trlh_mode != TRLH_BUBBLE_MODE) && (p.x >= 100) && (p.x <= 120) && (p.y >= 310) && (p.y <= 320))
    {
       if (front_to_rear_wheel_distance_in_inches > FRONT_TO_REAR_MIN_WHEEL_DISTANCE_IN_INCHES)
       {
@@ -1296,7 +1424,7 @@ void process_button_inputs(TS_Point p)
    }
 
    // click on axle width increase (+)
-   if ((p.x >= 220) && (p.x <= 240) && (p.y >= 290) && (p.y <= 305))
+   if ((trlh_mode != TRLH_BUBBLE_MODE) && (p.x >= 220) && (p.x <= 240) && (p.y >= 290) && (p.y <= 305))
    {
       if (left_to_right_wheel_distance_in_inches < LEFT_TO_RIGHT_MAX_WHEEL_DISTANCE_IN_INCHES)
       {
@@ -1309,7 +1437,7 @@ void process_button_inputs(TS_Point p)
    }
 
    // click on axle width decrease (-)
-   if ((p.x >= 220) && (p.x <= 240) && (p.y >= 310) && (p.y <= 320))
+   if ((trlh_mode != TRLH_BUBBLE_MODE) && (p.x >= 220) && (p.x <= 240) && (p.y >= 310) && (p.y <= 320))
    {
       if (left_to_right_wheel_distance_in_inches > LEFT_TO_RIGHT_MIN_WHEEL_DISTANCE_IN_INCHES)
       {
@@ -1328,7 +1456,12 @@ void process_button_inputs(TS_Point p)
       {
          trlh_mode = TRLH_TRAILER_MODE;
       } else {
-         trlh_mode = TRLH_MOTORHOME_MODE;
+         if (trlh_mode == TRLH_TRAILER_MODE)
+         {
+            trlh_mode = TRLH_BUBBLE_MODE;
+         } else {
+            trlh_mode = TRLH_MOTORHOME_MODE;
+         }
       }
 
       initial_battery_update_required = true;
@@ -1428,7 +1561,7 @@ bool read_settings(void)
                {
                   trlh_mode = (TRLH_MODE_TYPE)eeprom_value;
 
-                  if ((trlh_mode != TRLH_MOTORHOME_MODE) && (trlh_mode != TRLH_TRAILER_MODE))
+                  if ((trlh_mode != TRLH_MOTORHOME_MODE) && (trlh_mode != TRLH_TRAILER_MODE) && (trlh_mode != TRLH_BUBBLE_MODE))
                   {
                      trlh_mode = TRLH_MOTORHOME_MODE;
 
@@ -1861,6 +1994,7 @@ void show_battery_status(void)
          tft.drawRect(203, 2, 35, 31, ILI9341_BLACK);
 
          tft.setTextColor(ILI9341_BLACK, ILI9341_GREEN);
+         tft.setTextSize(1);
          print_centered("BATT", 221, 13);
          print_centered("OK", 221, 24);
       }
@@ -1935,21 +2069,29 @@ void show_console_results()
             }
          }
          break;
+
+      case TRLH_BUBBLE_MODE:
+         {
+         }
+         break;
    }
 
-   Serial.print("LEFT REAR  : INCHES TO RAISE = ");
-   if (lr_inch_blocks_needed <= MAX_BLOCK_INCHES)
+   if (trlh_mode != TRLH_BUBBLE_MODE)
    {
-      Serial.println(lr_inch_blocks_needed);
-   } else {
-      Serial.println("--");
-   }
-   Serial.print("RIGHT REAR : INCHES TO RAISE = ");
-   if (rr_inch_blocks_needed <= MAX_BLOCK_INCHES)
-   {
-      Serial.println(rr_inch_blocks_needed);
-   } else {
-      Serial.println("--");
+      Serial.print("LEFT REAR  : INCHES TO RAISE = ");
+      if (lr_inch_blocks_needed <= MAX_BLOCK_INCHES)
+      {
+         Serial.println(lr_inch_blocks_needed);
+      } else {
+         Serial.println("--");
+      }
+      Serial.print("RIGHT REAR : INCHES TO RAISE = ");
+      if (rr_inch_blocks_needed <= MAX_BLOCK_INCHES)
+      {
+         Serial.println(rr_inch_blocks_needed);
+      } else {
+         Serial.println("--");
+      }
    }
 }  // show_console_results()
 
