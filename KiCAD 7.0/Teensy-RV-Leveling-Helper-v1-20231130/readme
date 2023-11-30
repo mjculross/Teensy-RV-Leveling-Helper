@@ -1,0 +1,3 @@
+The included schematic includes external connection points as follows (with connectivity description in parentheses):
+- USB VIN (input 5VDC from the external USB connector)
+- DISABLE IN (use an external switch to connect the EN input on the Adafruit PowerBoost 1000C to GROUND to deactivate the project)
