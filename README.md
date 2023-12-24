@@ -68,9 +68,9 @@ MECHANICAL ASSEMBLY & CALIBRATION:
 
 ORDERING INFO:
 
-   The compact PCB is available from OshPark here: https://644db4de3505c40a0444-327723bce298e3ff5813fb42baeefbaa.ssl.cf1.rackcdn.com/cadcae2a8e1f75cbbfe4e320ceea97cb.kicad_pcb
+   The compact PCB is available from OshPark here: https://oshpark.com/projects/CN9rpz97/order
 
-   The compact PCB is available from OshPark here: https://644db4de3505c40a0444-327723bce298e3ff5813fb42baeefbaa.ssl.cf1.rackcdn.com/16edbf927788f19419fb2a5908d3066d.kicad_pcb
+   The compact PCB is available from OshPark here: https://oshpark.com/projects/r8bLkVSh/order
 
 
 CONTACT INFO:
