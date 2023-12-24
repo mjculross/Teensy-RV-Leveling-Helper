@@ -66,6 +66,13 @@ MECHANICAL ASSEMBLY & CALIBRATION:
    For information on mechanical assembly and/or calibration, see the "readme" file in the "photos" folder.
 
 
+ORDERING INFO:
+
+   The compact PCB is available from OshPark here: https://644db4de3505c40a0444-327723bce298e3ff5813fb42baeefbaa.ssl.cf1.rackcdn.com/cadcae2a8e1f75cbbfe4e320ceea97cb.kicad_pcb
+
+   The compact PCB is available from OshPark here: https://644db4de3505c40a0444-327723bce298e3ff5813fb42baeefbaa.ssl.cf1.rackcdn.com/16edbf927788f19419fb2a5908d3066d.kicad_pcb
+
+
 CONTACT INFO:
 
 If you have any questions, suggestions for improvement, and most especially any bug reports, please contact me at kd5rxt@arrl.net
