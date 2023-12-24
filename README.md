@@ -25,6 +25,12 @@ This project incorporates the following:
       BMA400 Triple Axis Accelerometer Breakout
          available from Sparkfun https://www.sparkfun.com/products/21208
 
+      PowerBoost 1000 Charger - Rechargeable 5V Lipo USB Boost @ 1A - 1000C
+         available from Adafruit https://www.adafruit.com/product/2465
+         
+      Lithium Ion Polymer Battery - 3.7v 2500mAh
+         available from Adafruit https://www.adafruit.com/product/328
+
    This project uses touchscreen input & color display to create a visual (graphical) indication of how many inches of leveling blocks are required to be put under each wheel of an RV to level it
   
    This project uses the ILI9341_t3 library, which has been optimized for use with the Teensy TFT display, as well as the XPT2046_Touchscreen.h touchscreen library for that same display
