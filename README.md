@@ -70,7 +70,7 @@ ORDERING INFO:
 
    The compact PCB is available from OshPark here: https://oshpark.com/projects/CN9rpz97/order
 
-   The compact PCB is available from OshPark here: https://oshpark.com/projects/r8bLkVSh/order
+   The full-size PCB is available from OshPark here: https://oshpark.com/projects/r8bLkVSh/order
 
 
 CONTACT INFO:
