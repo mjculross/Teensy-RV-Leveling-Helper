@@ -59,7 +59,23 @@ This project incorporates the following:
       5) update the display with the current results once per second (& average all values otherwise)
       6) repeat
 
-OPERATIONAL MODES:
+
+LATEST UPDATE (20231127-2145):
+
+   Now, two units can be used & they talk to each other using NRF24L01 wireless modules.
+   The first unit powered on will assume that it is the "INSIDE" unit (which is actually
+   reading its onboard BMA400 accelerometer & displaying the leveling recommendations from
+   the calculated pitch & roll).  The second unit will assume that it is the "OUTSIDE" unit
+   (which is ignoring its onboard BMA400, and is instead displaying the leveling
+   recommendations calculated using the pitch & roll data received over the NRF24L01
+   wireless link from the "INSIDE" unit).  This way, leveling can be achieved without the
+   need for running back & forth between inside (to look at the Teensy-RV-Leveling-Helper)
+   & outside (to make adjustments).  Any unit can also be used by itself...it does not have
+   to have a partner to work.  The latest firmware also automatically detects the lack of
+   the NRF24L01 module & operates successfully without the radio as a standalone unit.
+
+   
+OPERATIONAL MODE:
 
    This project can be switched between the following primary modes of operation:
    - RV mode (four points of balance/leveling = four wheels)
