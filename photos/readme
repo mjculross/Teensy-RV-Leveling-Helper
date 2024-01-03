@@ -6,10 +6,11 @@ Four M2.5 x 10mm screws (RED) are inserted from the bottom, passing thru the cas
 CALIBRATION:
 
 Preparation:
-- set the wheel base and the axle width both to 60" and ensure that the display is updating (the asterisk in the middle should be blinking)
-- place the project on a surface that is only slightly unlevel (1 or 2 degrees off) and pay particular attention to the location placement of the project case
+- set the wheel base and the axle width both to 60"
 
 Step #1:
+- place the project on a surface that is only slightly unlevel (less than 3 degrees off in any direction) with the primary slope oriented between front & back
+- pay particular attention to the location placement of the project case
 - note the initial PITCH angle reported (pitch_i)
 - rotate the project case 180 degrees, making sure the place the project case back as close to the same spot as before
 - note the rotated PITCH angle reported (pitch_r)
@@ -17,11 +18,16 @@ Step #1:
 - adjust the two screws at the top and/or bottom of the project case equally (raising and/or lowering the top and/or bottom of the project case as required) and repeat Step #1 as many times as necessary until pitch_i is approximately equal to the negative of pitch_r, centered around 0 degrees
 
 Step #2:
+- place the project on a surface that is only slightly unlevel (less than 3 degrees off in any direction) with the primary slope oriented between left & right
+- pay particular attention to the location placement of the project case
 - note the initial ROLL angle reported (roll_i)
 - rotate the project case 180 degrees, making sure the place the project case back as close to the same spot as before
 - note the rotated ROLL angle reported (roll_r)
 - rotate the project case 180 degrees, making sure the place the project case back as close to the same spot as before
 - adjust the two screws at the left and/or right side of the project case equally (raising and/or lowering the left and/or right side of the project case as required) and repeat Step #2 as many times as necessary until roll_i is approximately equal to the negative of roll_r, centered around 0 degrees
+
+Step #3"
+- repeat Step #1 above to cross-check the front-to-back calibration
 
 Final Steps:
 - reset the wheel base and the axle width as appropriate for your RV/trailer
