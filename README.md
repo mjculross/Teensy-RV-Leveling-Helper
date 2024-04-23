@@ -60,7 +60,7 @@ This project incorporates the following:
   
    This project uses the ILI9341_t3 library, which has been optimized for use with the Teensy TFT display, as well as the XPT2046_Touchscreen.h touchscreen library for that same display
 
-   This project uses the NRF24L01 wireless transceiver module to allow two TRLH units to communicate, using one as the inside unit taking measurements, and the other as a remote display
+   This project (optionally) uses the NRF24L01 wireless transceiver module to allow two TRLH units to communicate, using one as the inside unit taking measurements, and the other as a remote display
    
    This project specifically uses the SparkFun BMA400 support library (SparkFun_BMA400_Arduino_Library.h) which can be added using the Arduino IDE library manager.
 
