@@ -87,7 +87,7 @@ This project incorporates the following:
       6) repeat
 
 
-LATEST UPDATE (20231127-2145):
+LATEST UPDATE (version 1.3 dated 03/25/2024 @1940):
 
    Now, two units can be used & they talk to each other using NRF24L01 wireless modules.
    The first unit powered on will assume that it is the "INSIDE" unit (which is actually
