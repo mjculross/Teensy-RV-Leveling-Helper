@@ -1,5 +1,5 @@
 # Teensy-RV-Leveling-Helper
-Teensy RV Leveling Helper using Teensy 4.0 + BMA400 Triple Axis Accelerometer Breakout + ILI9341 Color 320x240 TFT Touchscreen display
+Teensy RV Leveling Helper using Teensy 4.0 + BMA400 Triple Axis Accelerometer Breakout + ILI9341 Color 320x240 TFT Touchscreen display + NRF24L01 radio
 
 ![TRLH - RV mode main screen](https://github.com/mjculross/Teensy-RV-Leveling-Helper/assets/4277910/6b16b0c0-ed02-4666-bd05-db4aa8ab182b)
 
@@ -43,6 +43,9 @@ This project incorporates the following:
       ILI9341 Color 320x240 TFT Touchscreen display
          available from PJRC.com https://www.pjrc.com/store/display_ili9341_touch.html
 
+      HiLetgo NRF24L01+ Wireless Transceiver Module 2.4GHz
+         available from https://www.amazon.com/gp/product/B00LX47OCY
+  
       BMA400 Triple Axis Accelerometer Breakout
          available from Sparkfun https://www.sparkfun.com/products/21208
 
@@ -52,10 +55,13 @@ This project incorporates the following:
       Lithium Ion Polymer Battery - 3.7v 2500mAh
          available from Adafruit https://www.adafruit.com/product/328
 
+   
    This project uses touchscreen input & color display to create a visual (graphical) indication of how many inches of leveling blocks are required to be put under each wheel of an RV to level it
   
    This project uses the ILI9341_t3 library, which has been optimized for use with the Teensy TFT display, as well as the XPT2046_Touchscreen.h touchscreen library for that same display
 
+   This project uses the NRF24L01 wireless transceiver module to allow two TRLH units to communicate, using one as the inside unit taking measurements, and the other as a remote display
+   
    This project specifically uses the SparkFun BMA400 support library (SparkFun_BMA400_Arduino_Library.h) which can be added using the Arduino IDE library manager.
 
    This project allows & stores configurable wheel base (front to back wheels distance) from 60" to 255".
