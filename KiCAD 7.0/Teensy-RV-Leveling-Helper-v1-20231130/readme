@@ -1,5 +1,0 @@
-This set of KiCAD design files is for the original v1 (4.5" x 6") PCB for the 20231130 version of the Teensy-RV-Leveling-Helper.
-
-The included schematic includes external connection points as follows (with connectivity description in parentheses):
-- USB VIN (input 5VDC from the external USB connector)
-- DISABLE IN (use an external switch to connect the EN input on the Adafruit PowerBoost 1000C to GROUND to deactivate the project)
