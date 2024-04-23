@@ -12,6 +12,27 @@ This project came about after we acquired a used RV motorhome & I quickly grew t
    6) if the RV is not yet "level", then drive the RV down off of the best guess number of blocks
    7) goto 3) above & repeat several times (until either we're close enough, or I get fed up, whichever comes first)
 
+Using the TRLH makes this process much more convenient & quick as follows:
+   1) park your RV where you want it to ultimately rest for the duration of your stay
+   2) apply power to the inside TRLH & place it on the kitchen counter inside the RV
+      (which provides a non-moving reference plane for the entire RV)
+   3) if you are using a second TRLH as a remote display, apply power to the remote TRLH
+      (the two units will establish sync over the radio & the remote unit will ignore its
+      own accelerometer data, and will instead perform all leveling calculations using
+      the accelerometer data received from the inside TRLH over the NRF24L01 radio -
+      NOTE: if you're not using the remote TRLH, the inside TRLH will still operate as a
+      single unit)
+   4) take note of the leveling solution displayed (indicating results of calculating
+      how many inches to raise any of the wheels in order to bring the RV to a perfectly
+      level position)
+   5) back the RV away sufficiently to leave room to put the ramps into place
+   6) build and place the required ramps (using 1" blocks) to raise the wheels as indicated
+   7) drive the RV up onto the newly built leveling ramps
+   8) verify that the TRLH now shows 0" for each wheel - LEVELING SUCCESS !! (Note that
+      anything within 1" of level is sufficient for the comfort of the occupants, as
+      well as for the equipment, primarily the refrigerator)
+   9) sit back & enjoy a cold drink of your choice
+
 This project incorporates the following:
 
    HARDWARE:
