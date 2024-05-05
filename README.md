@@ -111,16 +111,17 @@ LATEST UPDATE (version 1.4 dated 04/05/2024 @1335):
    channel from the RV LEVELING MODE to minimize interference between them).  Up to ten
    different custom patterns can be stored in EEPROM for quick recall.  Each pattern can
    be from two to thirty-two LEDs in length.  Each LED can be set to any of over sixteen
-   million colors.  You can also customize the speed for each pattern individually.  An
-   RV Leveling Helper operating in LED COLOR CONTROLLER MODE need not have the TFT Color
-   Touchscreen installed/connected.  By shorting PIN 10 on the Teensy to ground, an RV
-   Leveling Helper unit can be forced into LED COLOR CONTROLLER MODE (specifically for
-   the case where you have an RV Leveling helper unit that does not have a display
-   connected by which to change between the two modes, essentially making it a dedicated,
-   stand-alone LED COLOR CONTROLLER).  For the RV Leveling Helper with a TFT Color
-   Touchscreen installed/connected and operting in the LED COLOR CONTROLLER MODE, holding
-   down on the battery display box for 5-seconds will change it back to RV LEVELING MODE.
-   So, you have two-controllers-in-one with this new capability.
+   million colors.  You can also customize the speed for each pattern individually, as
+   well as the direction of movement (FORWARD / REVERSE).  An RV Leveling Helper which
+   is being operated in LED COLOR CONTROLLER MODE need not have the TFT Color Touchscreen
+   installed/connected.  By shorting PIN 10 on the Teensy to ground, an RV Leveling
+   Helper unit can be forced into LED COLOR CONTROLLER MODE (specifically for the case
+   where you have an RV Leveling helper unit that does not have a display connected by
+   which to change between the two modes, essentially making it a dedicated, stand-alone
+   LED COLOR CONTROLLER).  For the RV Leveling Helper with a TFT Color Touchscreen
+   installed/connected and operting in the LED COLOR CONTROLLER MODE, holding down on
+   the battery display box for 5-seconds will change it back to RV LEVELING MODE.  So,
+   you now have two-controllers-in-one with this new capability.
    
 RV LEVELING CONTROLLER OPERATIONAL MODE:
 
