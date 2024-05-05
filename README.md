@@ -87,7 +87,7 @@ This project incorporates the following:
       6) repeat
 
 
-LATEST UPDATE (version 1.3 dated 03/25/2024 @1940):
+LATEST UPDATE (version 1.4 dated 04/05/2024 @1335):
 
    Now, two units can be used & they talk to each other using NRF24L01 wireless modules.
    The first unit powered on will assume that it is the "INSIDE" unit (which is actually
@@ -101,8 +101,28 @@ LATEST UPDATE (version 1.3 dated 03/25/2024 @1940):
    to have a partner to work.  The latest firmware also automatically detects the lack of
    the NRF24L01 module & operates successfully without the radio as a standalone unit.
 
+   EASTER EGG: If you hold down on the battery status display box for 5-seconds, the unit
+   will change from RV LEVELING MODE to LED COLOR CONTROLLER MODE.  In this mode, with a
+   WS2812B LED strip powered from the 5VDC supply & common ground with the Teensy, tie the
+   data line to PIN 8 & the RV Leveling Helper can also be used to create custom LED
+   patterns, with the ability to control the mode (MARQUIS, CYCLE, FADE, CROSSFADE, ZIPPER,
+   & RANDOM), the brightness, the radio power level (for using another unit as a remote
+   control), the radio channel (to put the LED COLOR CONTROLLER MODE on a different radio
+   channel from the RV LEVELING MODE to minimize interference between them).  Up to ten
+   different custom patterns can be stored in EEPROM for quick recall.  Each pattern can
+   be from two to thirty-two LEDs in length.  Each LED can be set to any of over sixteen
+   million colors.  You can also customize the speed for each pattern individually.  An
+   RV Leveling Helper operating in LED COLOR CONTROLLER MODE need not have the TFT Color
+   Touchscreen installed/connected.  By shorting PIN 10 on the Teensy to ground, an RV
+   Leveling Helper unit can be forced into LED COLOR CONTROLLER MODE (specifically for
+   the case where you have an RV Leveling helper unit that does not have a display
+   connected by which to change between the two modes, essentially making it a dedicated,
+   stand-alone LED COLOR CONTROLLER).  For the RV Leveling Helper with a TFT Color
+   Touchscreen installed/connected and operting in the LED COLOR CONTROLLER MODE, holding
+   down on the battery display box for 5-seconds will change it back to RV LEVELING MODE.
+   So, you have two-controllers-in-one with this new capability.
    
-OPERATIONAL MODE:
+RV LEVELING CONTROLLER OPERATIONAL MODE:
 
    This project can be switched between the following primary modes of operation:
    - RV mode (four points of balance/leveling = four wheels)
