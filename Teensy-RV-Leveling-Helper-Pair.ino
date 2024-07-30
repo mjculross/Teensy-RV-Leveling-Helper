@@ -1,5 +1,5 @@
 //
-// Teensy RV Leveling Helper Pair using NRF24L01 - version 1.4 dated 05/04/2024 @1335
+// Teensy RV Leveling Helper Pair using NRF24L01 - version 1.6 dated 07/30/2024 @0635
 //    created by Mark J Culross, KD5RXT (kd5rxt@arrl.net)
 //
 // HARDWARE:
@@ -84,8 +84,8 @@
 // PIN D23/A9   = (not used)
 
 // define constant display strings
-String DATETIME = ("20240504-1335");
-String VERSION = ("1.4");
+String DATETIME = ("20240730-0635");
+String VERSION = ("1.1");
 String TITLE_RV = ("Teensy RV Leveling Helper Pair");
 String TITLE_LED = ("Teensy RGB Color Mapper v" + VERSION);
 String TITLE_A = ("Teensy RV");
@@ -166,6 +166,9 @@ XPT2046_Touchscreen ts(TS_CS_PIN);
 // The nRF24L01+ 2.4GHz wireless module also uses hardware SPI, plus pin #7 as CE & pin #6 as CSN
 #define RF24_CHIP_ENABLE 7
 #define RF24_CHIP_SELECT_NOT 6
+// >> special for RV LED controller on which pins 6 & 7 were shorted to ground
+//#define RF24_CHIP_ENABLE 4
+//#define RF24_CHIP_SELECT_NOT 5
 
 RF24 radio(RF24_CHIP_ENABLE, RF24_CHIP_SELECT_NOT);
 
@@ -734,6 +737,10 @@ void calculate_results(void)
                hitch_inch_blocks_needed = 0;
                lr_inch_blocks_needed = int(0.1 + abs(front_to_rear_wheel_distance_in_inches * sin(pitch * PI / 180.0)));
                rr_inch_blocks_needed = int(0.1 + abs(left_to_right_wheel_distance_in_inches * sin(roll * PI / 180.0)) + abs(front_to_rear_wheel_distance_in_inches * sin(pitch * PI / 180.0)));
+
+               hitch_inch_blocks_needed -= lr_inch_blocks_needed;
+               rr_inch_blocks_needed -= lr_inch_blocks_needed;
+               lr_inch_blocks_needed = 0;
             }
 
             // hitch is highest, & leaning left
@@ -742,6 +749,10 @@ void calculate_results(void)
                hitch_inch_blocks_needed = 0;
                lr_inch_blocks_needed = int(0.1 + abs(front_to_rear_wheel_distance_in_inches * sin(pitch * PI / 180.0)) + abs(left_to_right_wheel_distance_in_inches * sin(roll * PI / 180.0)));
                rr_inch_blocks_needed = int(0.1 + abs(front_to_rear_wheel_distance_in_inches * sin(pitch * PI / 180.0)));
+
+               hitch_inch_blocks_needed -= rr_inch_blocks_needed;
+               lr_inch_blocks_needed -= rr_inch_blocks_needed;
+               rr_inch_blocks_needed = 0;
             }
 
             // left-rear is highest wheel
@@ -1312,6 +1323,72 @@ void draw_results(void)
          {
             switch (hitch_inch_blocks_needed)
             {
+               case -11:
+                  {
+                     tire_color = block_11_inch_color;
+                  }
+                  break;
+
+               case -10:
+                  {
+                     tire_color = block_10_inch_color;
+                  }
+                  break;
+
+               case -9:
+                  {
+                     tire_color = block_09_inch_color;
+                  }
+                  break;
+
+               case -8:
+                  {
+                     tire_color = block_08_inch_color;
+                  }
+                  break;
+
+               case -7:
+                  {
+                     tire_color = block_07_inch_color;
+                  }
+                  break;
+
+               case -6:
+                  {
+                     tire_color = block_06_inch_color;
+                  }
+                  break;
+
+               case -5:
+                  {
+                     tire_color = block_05_inch_color;
+                  }
+                  break;
+
+               case -4:
+                  {
+                     tire_color = block_04_inch_color;
+                  }
+                  break;
+
+               case -3:
+                  {
+                     tire_color = block_03_inch_color;
+                  }
+                  break;
+
+               case -2:
+                  {
+                     tire_color = block_02_inch_color;
+                  }
+                  break;
+
+               case -1:
+                  {
+                     tire_color = block_01_inch_color;
+                  }
+                  break;
+
                case 0:
                   {
                      tire_color = block_00_inch_color;
@@ -1739,17 +1816,53 @@ void draw_results(void)
 
          case TRLH_TRAILER_MODE:
             {
-               tft.setCursor(15, 100);
-               if (hitch_inch_blocks_needed <= MAX_BLOCK_INCHES)
+               if (hitch_inch_blocks_needed < 0)
                {
-                  if (hitch_inch_blocks_needed < 10)
+                  tft.setTextColor(ILI9341_BLACK, ILI9341_WHITE);
+
+                  tft.setTextSize(2);
+
+                  tft.setCursor(5, 80);
+                  tft.print("LOWER");
+
+                  tft.setTextSize(3);
+
+                  tft.setCursor(15, 100);
+
+                  if (hitch_inch_blocks_needed >= (MAX_BLOCK_INCHES * -2))
                   {
-                     tft.print("0");
+                     if (abs(hitch_inch_blocks_needed) < 10)
+                     {
+                        tft.print("0");
+                     }
+                     tft.print((abs((int)hitch_inch_blocks_needed)));
+                     tft.print("\"");
+                  } else {
+                     tft.print("-- ");
                   }
-                  tft.print((int)hitch_inch_blocks_needed);
-                  tft.print("\"");
                } else {
-                  tft.print("-- ");
+                  tft.setTextColor(ILI9341_BLACK, ILI9341_WHITE);
+
+                  tft.setTextSize(2);
+
+                  tft.setCursor(5, 80);
+                  tft.print("RAISE");
+
+                  tft.setTextSize(3);
+
+                  tft.setCursor(15, 100);
+
+                  if (hitch_inch_blocks_needed <= (MAX_BLOCK_INCHES * 2))
+                  {
+                     if (hitch_inch_blocks_needed < 10)
+                     {
+                        tft.print("0");
+                     }
+                     tft.print((int)hitch_inch_blocks_needed);
+                     tft.print("\"");
+                  } else {
+                     tft.print("-- ");
+                  }
                }
             }
             break;
@@ -2057,6 +2170,47 @@ void initialize_for_led_color_mapper(void)
                   led_list[13] = 0xFF00BF;
                   led_list[14] = 0xFF00BF;
                   led_list[15] = 0xFF00BF;
+                  led_list[16] = RGB_silver;
+                  led_list[17] = RGB_silver;
+                  led_list[18] = RGB_silver;
+                  led_list[19] = RGB_silver;
+                  led_list[20] = RGB_silver;
+                  led_list[21] = RGB_silver;
+                  led_list[22] = RGB_silver;
+                  led_list[23] = RGB_silver;
+                  led_list[24] = RGB_silver;
+                  led_list[25] = RGB_silver;
+                  led_list[26] = RGB_silver;
+                  led_list[27] = RGB_silver;
+                  led_list[28] = RGB_silver;
+                  led_list[29] = RGB_silver;
+                  led_list[30] = RGB_silver;
+                  led_list[31] = RGB_silver;
+               }
+               break;
+
+            case 9:
+               {
+                  pattern_type = PATTERN_TYPE_CROSSFADE_FORWARD;
+                  pattern_speed = 20;
+                  pattern_length = 7;
+
+                  led_list[0] = 0xFF00BF;
+                  led_list[1] = 0xFF00BF;
+                  led_list[2] = 0xFF00BF;
+                  led_list[3] = 0xFF00BF;
+                  led_list[4] = RGB_silver;
+                  led_list[5] = 0xFF00BF;
+                  led_list[6] = RGB_silver;
+                  led_list[7] = RGB_silver;
+                  led_list[8] = RGB_silver;
+                  led_list[9] = RGB_silver;
+                  led_list[10] = RGB_silver;
+                  led_list[11] = RGB_silver;
+                  led_list[12] = RGB_silver;
+                  led_list[13] = RGB_silver;
+                  led_list[14] = RGB_silver;
+                  led_list[15] = RGB_silver;
                   led_list[16] = RGB_silver;
                   led_list[17] = RGB_silver;
                   led_list[18] = RGB_silver;
