@@ -87,7 +87,12 @@ This project incorporates the following:
       6) repeat
 
 
-LATEST UPDATE (version 1.4 dated 04/05/2024 @1335):
+UPDATE NOTES for version 1.6 dated 07/20/2024 @0635:
+
+   Updated TRAILER MODE such that is now indicates LOWER or RAISE values up to 24" for the
+   hitch, and RAISE values up to 12" for the wheels.
+   
+UPDATE NOTES for version 1.4 dated 04/05/2024 @1335:
 
    Now, two units can be used & they talk to each other using NRF24L01 wireless modules.
    The first unit powered on will assume that it is the "INSIDE" unit (which is actually
